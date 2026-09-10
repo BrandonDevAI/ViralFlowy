@@ -354,7 +354,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     try {
       // Redirect back to the current page (landing or app) so pricing flow works
-      const redirectUrl = window.location.origin + window.location.pathname;
+
+      const redirectUrl = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
