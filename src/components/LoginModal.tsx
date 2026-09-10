@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import { X, Rocket, Shield, Sparkles, Zap } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';

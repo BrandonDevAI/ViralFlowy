@@ -1,6 +1,7 @@
 import type { CompleteVideoOutput } from '../types';
+import { env } from '../lib/env';
 
-const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
+const OPENAI_API_KEY = env.OPENAI_API_KEY;
 
 // ─────────────────────────────────────────────
 //  SYSTEM PROMPT — Expert Viral Content Engine

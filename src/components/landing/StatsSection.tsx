@@ -1,65 +1,76 @@
-import { TrendingUp } from 'lucide-react';
+'use client';
+
+import React from 'react';
+import { TrendingUp, Clock, Layers, FileCode, Smartphone } from 'lucide-react';
 
 const stats = [
   {
-    value: '10x',
-    label: 'Más rápido que crear contenido manualmente',
-    sublabel: 'Ahorra horas cada semana',
+    icon: Clock,
+    value: '< 2 min',
+    label: 'Tiempo promedio',
+    sublabel: 'Para generar guiones completos',
+    color: 'text-purple-400',
   },
   {
+    icon: Layers,
+    value: '10+',
+    label: 'Variaciones por idea',
+    sublabel: 'Múltiples ángulos y ganchos',
+    color: 'text-indigo-400',
+  },
+  {
+    icon: FileCode,
     value: '500+',
-    label: 'Plantillas y fórmulas virales',
-    sublabel: 'Actualizadas constantemente',
+    label: 'Fórmulas virales',
+    sublabel: 'De TikTok, Reels y Shorts',
+    color: 'text-blue-400',
   },
   {
-    value: '50K+',
-    label: 'Creadores y marcas activas',
-    sublabel: 'En más de 30 países',
-  },
-  {
-    value: '2.5M+',
-    label: 'Contenidos generados',
-    sublabel: 'Y creciendo cada día',
+    icon: Smartphone,
+    value: '4',
+    label: 'Formatos integrados',
+    sublabel: 'Ideas, URL, Carruseles y Ads',
+    color: 'text-emerald-400',
   },
 ];
 
 export default function StatsSection() {
   return (
-    <section className="py-20 px-6 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-indigo-600/[0.03] via-purple-600/[0.05] to-transparent pointer-events-none" />
+    <section className="py-16 px-6 relative">
+      <div className="max-w-6xl mx-auto">
+        <div className="rounded-[32px] border border-white/[0.08] bg-[#0A0A0F]/80 backdrop-blur-xl overflow-hidden shadow-[0_0_80px_rgba(99,102,241,0.05)]">
+          {/* Top accent hairline */}
+          <div className="h-px bg-gradient-to-r from-transparent via-purple-500/40 to-transparent" />
 
-      <div className="relative max-w-6xl mx-auto">
-        <div className="rounded-[32px] border border-white/[0.08] bg-[#0A0A0F]/60 backdrop-blur-xl overflow-hidden shadow-[0_0_80px_rgba(99,102,241,0.05)]">
-          {/* Top accent line */}
-          <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent" />
-
-          <div className="p-8 sm:p-14 relative">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.08),transparent_50%)] pointer-events-none" />
-            
-            <div className="flex items-center justify-center gap-2 mb-12 relative z-10">
-              <TrendingUp className="w-5 h-5 text-indigo-400" />
-              <span className="text-xs text-indigo-300 font-bold uppercase tracking-[0.2em]">Resultados comprobados</span>
+          <div className="p-8 sm:p-12 relative">
+            <div className="flex items-center justify-center gap-2 mb-10 relative z-10">
+              <TrendingUp className="w-4 h-4 text-purple-400" />
+              <span className="text-xs text-purple-300 font-bold uppercase tracking-[0.2em]">
+                Métricas Funcionales del Motor
+              </span>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 relative z-10">
-              {stats.map((stat, index) => (
-                <div
-                  key={stat.label}
-                  className="text-center animate-fadeInUp group"
-                  style={{ animationDelay: `${index * 0.15}s` }}
-                >
-                  <div className="text-4xl sm:text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 group-hover:from-indigo-400 group-hover:to-purple-400 transition-all duration-500 mb-3 tracking-tighter drop-shadow-sm group-hover:scale-110">
-                    {stat.value}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+              {stats.map((stat, index) => {
+                const Icon = stat.icon;
+                return (
+                  <div key={stat.label} className="text-center group">
+                    <div className="w-10 h-10 mx-auto mb-3 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-gray-400 group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-1.5 font-mono tracking-tight group-hover:text-purple-300 transition-colors">
+                      {stat.value}
+                    </div>
+                    <p className="text-sm text-gray-200 font-bold mb-0.5">{stat.label}</p>
+                    <p className="text-xs text-gray-500">{stat.sublabel}</p>
                   </div>
-                  <p className="text-[15px] text-gray-300 font-bold mb-1.5">{stat.label}</p>
-                  <p className="text-xs text-gray-500 font-medium">{stat.sublabel}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
-          {/* Bottom accent line */}
-          <div className="h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+          {/* Bottom accent hairline */}
+          <div className="h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
         </div>
       </div>
     </section>

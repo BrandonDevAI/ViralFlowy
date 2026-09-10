@@ -1,4 +1,5 @@
 import type { PlanName } from '../types';
+import { env } from '../lib/env';
 
 // ─────────────────────────────────────────────
 //  TYPES
@@ -106,7 +107,7 @@ JSON de respuesta:
 // ─────────────────────────────────────────────
 //  MAIN FUNCTION
 // ─────────────────────────────────────────────
-const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
+const OPENAI_API_KEY = env.OPENAI_API_KEY;
 
 export async function generateCarousel(
   topic: string,

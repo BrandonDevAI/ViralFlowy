@@ -1,4 +1,5 @@
-const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
+import { env } from '../lib/env';
+const OPENAI_API_KEY = env.OPENAI_API_KEY;
 
 export interface AdsOutput {
   id: string;

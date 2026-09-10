@@ -1,55 +1,74 @@
-import { useState } from 'react';
-import { HelpCircle, ChevronDown, MessageCircle } from 'lucide-react';
+'use client';
+
+import React, { useState } from 'react';
+import { HelpCircle, ChevronDown, MessageCircle, Sparkles } from 'lucide-react';
+import { sounds } from '../../lib/soundFeedback';
 
 const faqs = [
   {
-    question: '¿En qué se diferencia ViralFlowy de usar ChatGPT?',
-    answer: 'ChatGPT es un modelo genérico. ViralFlowy está entrenado específicamente con fórmulas virales probadas de TikTok, Reels y YouTube. No es un prompt genérico — analizamos la estructura de videos virales reales y replicamos su fórmula adaptada a tu marca. El resultado es contenido optimizado para engagement, no texto genérico.',
+    question: '¿En qué se diferencia ViralFlow de usar ChatGPT?',
+    answer:
+      'ChatGPT es un modelo de texto genérico. ViralFlow está entrenado y estructurado específicamente sobre el algoritmo y la psicología de retención de TikTok, Reels y YouTube Shorts. En lugar de darte respuestas vagas, ViralFlow desglosa hooks de 0-3 segundos, estructuras narrativas segundo a segundo, ángulos probados y llamadas a la acción que aumentan la conversión.',
   },
   {
-    question: '¿Cómo funciona la generación desde URL viral?',
-    answer: 'Pegas la URL de cualquier video viral de TikTok, Instagram o YouTube. Nuestra IA analiza la estructura, hook, formato y tono del video original. Luego genera un hook, guión completo, CTA, título y descripción adaptados a tu marca con la misma fórmula que hizo viral al original. Tú eliges qué tipo de contenido quieres crear a partir de ese video.',
+    question: '¿Puedo analizar un TikTok o Reel que no es mío?',
+    answer:
+      'Sí. Puedes pegar la URL de cualquier video viral público. Nuestro motor analiza su estructura, ritmo narrativo y tipo de gancho, y genera una versión adaptada a tu producto o nicho sin plagiar el contenido original.',
   },
   {
-    question: '¿Los contenidos suenan robóticos o a IA?',
-    answer: 'No. Generamos en estilo UGC natural — el contenido suena como si un creador real lo hubiera escrito. Puedes elegir entre varios estilos (storytelling, educativo, entretenimiento, etc.) y el tono se adapta automáticamente. Tus seguidores no notarán la diferencia.',
+    question: '¿Qué plataformas soporta ViralFlow?',
+    answer:
+      'ViralFlow genera contenido optimizado para TikTok, Instagram Reels, YouTube Shorts, anuncios de video (TikTok Ads / Meta Ads) y carruseles educativos de Instagram/LinkedIn.',
   },
   {
-    question: '¿Funciona para cualquier nicho?',
-    answer: 'Sí. ViralFlowy funciona para cualquier nicho porque analizamos fórmulas virales universales (hooks de curiosidad, controversia, revelación, etc.) y las adaptamos a tu contexto específico. Ya sea fitness, belleza, ecommerce, educación, finanzas o cualquier otro — solo ingresa tu tema y la IA se encarga.',
+    question: '¿La IA adapta el contenido a mi marca?',
+    answer:
+      'Totalmente. Puedes definir tu nicho, producto, audiencia objetivo y el estilo (UGC natural, storytelling, educativo, venta directa o tendencias) para que el tono suene 100% auténtico.',
   },
   {
-    question: '¿Qué incluye el plan Pro que no tienen los demás?',
-    answer: 'El plan Pro ($69/año) incluye generaciones ilimitadas, 500+ fórmulas virales listas para usar, +100 hooks visuales, guardar hasta 5 marcas o clientes, historial completo de todo tu contenido, acceso anticipado a nuevas funciones (miniaturas con IA, carruseles de video), licencia comercial y soporte 24/7. Es el único plan sin límites.',
+    question: '¿Puedo editar los guiones generados?',
+    answer:
+      'Sí. Todos los ganchos, guiones e indicaciones son editables y puedes copiarlos con un solo clic para llevarlos a tu teleprompter, editor o Notion.',
   },
   {
-    question: '¿Puedo cancelar en cualquier momento?',
-    answer: 'Sí, puedes cancelar desde tu panel de configuración sin penalizaciones ni preguntas. Si cancelas, mantendrás acceso hasta el final de tu período pagado. Además, todos los planes tienen 30 días de garantía de devolución — si no estás satisfecho, te devolvemos el 100% de tu dinero.',
+    question: '¿Qué incluye cada generación?',
+    answer:
+      'Cada generación te entrega el gancho principal (hook), variaciones alternativas, desglose segundo a segundo (qué decir y qué mostrar en cámara), llamadas a la acción (CTAs) y sugerencias de hashtags.',
   },
   {
-    question: '¿Puedo usar el contenido para anuncios pagados?',
-    answer: 'Absolutamente. De hecho, muchas marcas y agencias usan nuestros guiones directamente para campañas de Facebook Ads, TikTok Ads e Instagram Ads. Los CTAs están optimizados para conversión. Con el plan Pro tienes licencia de uso comercial incluida.',
+    question: '¿Puedo cancelar cuando quiera?',
+    answer:
+      'Sí, no hay compromisos ni permanencias. Puedes cancelar tu suscripción en cualquier momento desde tu panel o PayPal con un solo clic.',
+  },
+  {
+    question: '¿Puedo utilizar el contenido comercialmente?',
+    answer:
+      'Sí. Todo el contenido generado con ViralFlow te pertenece completamente y puedes usarlo para cuentas personales, marcas o campañas de clientes en agencias.',
   },
 ];
 
 export default function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const toggle = (index: number) => {
+    sounds.playClick();
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   return (
-    <section id="faq" className="py-24 px-6">
+    <section id="faq" className="py-24 px-6 relative">
       <div className="max-w-3xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/[0.08] text-cyan-300 text-xs font-medium mb-6">
-            <HelpCircle className="w-3 h-3" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-purple-500/20 bg-purple-500/[0.08] text-purple-300 text-xs font-semibold mb-6">
+            <Sparkles className="w-3.5 h-3.5" />
             <span>Preguntas Frecuentes</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">
-            ¿Tienes{' '}
-            <span className="virales-gradient">dudas</span>?
+            Respuestas a tus <span className="virales-gradient">dudas</span>
           </h2>
-          <p className="text-gray-400 text-base sm:text-lg max-w-xl mx-auto">
-            Respondemos las preguntas que más nos hacen antes de comprar.
+          <p className="text-gray-300 text-base sm:text-lg max-w-xl mx-auto">
+            Todo lo que necesitas saber antes de empezar a crear con ViralFlow.
           </p>
         </div>
 
@@ -59,32 +78,37 @@ export default function FAQSection() {
             const isOpen = openIndex === index;
             return (
               <div
-                key={index}
-                className={`rounded-2xl border transition-all duration-300 ${
+                key={faq.question}
+                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                   isOpen
-                    ? 'border-purple-500/20 bg-white/[0.04]'
-                    : 'border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.03] hover:border-white/[0.1]'
+                    ? 'border-purple-500/30 bg-[#0c0c16]/90 shadow-lg shadow-purple-500/5'
+                    : 'border-white/[0.06] bg-[#07070c]/70 hover:bg-white/[0.03] hover:border-white/[0.1]'
                 }`}
               >
                 <button
-                  onClick={() => setOpenIndex(isOpen ? null : index)}
-                  className="w-full flex items-center justify-between p-5 text-left"
+                  onClick={() => toggle(index)}
+                  className="w-full flex items-center justify-between p-5 sm:p-6 text-left cursor-pointer gap-4"
+                  aria-expanded={isOpen}
                 >
-                  <span className={`text-sm font-semibold transition-colors duration-200 pr-4 ${isOpen ? 'text-white' : 'text-gray-300'}`}>
+                  <span
+                    className={`text-sm sm:text-base font-semibold transition-colors duration-200 ${
+                      isOpen ? 'text-white' : 'text-gray-300'
+                    }`}
+                  >
                     {faq.question}
                   </span>
                   <ChevronDown
-                    className={`w-4 h-4 flex-shrink-0 transition-all duration-300 ${
+                    className={`w-5 h-5 flex-shrink-0 transition-transform duration-300 ${
                       isOpen ? 'rotate-180 text-purple-400' : 'text-gray-500'
                     }`}
                   />
                 </button>
                 <div
-                  className={`overflow-hidden transition-all duration-300 ${
+                  className={`transition-all duration-300 ease-in-out overflow-hidden ${
                     isOpen ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'
                   }`}
                 >
-                  <p className="px-5 pb-5 text-sm text-gray-400 leading-relaxed">
+                  <p className="px-5 sm:px-6 pb-6 text-sm text-gray-300 leading-relaxed border-t border-white/[0.04] pt-4">
                     {faq.answer}
                   </p>
                 </div>
@@ -93,13 +117,16 @@ export default function FAQSection() {
           })}
         </div>
 
-        {/* Still have questions */}
-        <div className="mt-10 text-center">
-          <div className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-gray-400 text-sm">
+        {/* Contact help */}
+        <div className="mt-12 text-center">
+          <div className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white/[0.03] border border-white/[0.06] text-gray-400 text-sm">
             <MessageCircle className="w-4 h-4 text-purple-400" />
-            <span>¿Otra pregunta?</span>
-            <a href="mailto:soporte@viralflowy.com" className="text-purple-400 font-semibold hover:text-purple-300 transition-colors">
-              Escríbenos
+            <span>¿Tienes otra pregunta?</span>
+            <a
+              href="mailto:soporte@viralflowy.com"
+              className="text-purple-400 font-semibold hover:text-purple-300 transition-colors"
+            >
+              Escríbenos a soporte
             </a>
           </div>
         </div>

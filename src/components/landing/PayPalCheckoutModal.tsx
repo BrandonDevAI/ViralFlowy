@@ -1,5 +1,7 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { X, Shield, Clock, Gem, Zap, Crown, Tag, CheckCircle2, AlertCircle } from 'lucide-react';
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import { useAuth } from '../../context/AuthContext';
@@ -36,7 +38,7 @@ const VALID_DISCOUNT_CODES: Record<string, { percent: number; label: string }> =
 export default function PayPalCheckoutModal({ isOpen, onClose, planId }: PayPalCheckoutModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const { profile, refreshSubscription } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
   const planConfig = PLAN_CONFIGS[planId];
   const PlanIcon = PLAN_ICONS[planId];
 
@@ -306,7 +308,7 @@ export default function PayPalCheckoutModal({ isOpen, onClose, planId }: PayPalC
                   onClose();
                   // Use soft navigation to avoid full page reload and losing context
                   setTimeout(() => {
-                    navigate('/app');
+                    router.push('/app');
                   }, 100);
                 } catch (error) {
                   console.error('Error capturando el pago:', error);

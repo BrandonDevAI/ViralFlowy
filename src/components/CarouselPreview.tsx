@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Copy, CheckCircle2, Palette, Lightbulb, Hash, ExternalLink, Download, Loader2 } from 'lucide-react';
 import * as htmlToImage from 'html-to-image';

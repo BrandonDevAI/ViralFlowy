@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import type { User, Session } from '@supabase/supabase-js';
@@ -347,7 +349,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // ---- Sign in with Google ----
   const signInWithGoogle = useCallback(async () => {
     if (!isSupabaseConfigured) {
-      console.warn('Supabase not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to .env');
+      console.warn('Supabase not configured. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to .env.local');
       return;
     }
     try {

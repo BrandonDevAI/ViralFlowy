@@ -1,24 +1,29 @@
-import { useState, useEffect } from 'react';
+'use client';
 
-// Persist the countdown target in localStorage so it doesn't reset on refresh
+import React, { useState, useEffect } from 'react';
+
 function getTargetTime(): number {
-  const key = 'viralflowy_offer_end';
-  const stored = localStorage.getItem(key);
-  if (stored) {
-    const val = parseInt(stored, 10);
-    if (val > Date.now()) return val;
+  if (typeof window === 'undefined') return Date.now() + 2 * 60 * 60 * 1000;
+  try {
+    const key = 'viralflowy_offer_end';
+    const stored = localStorage.getItem(key);
+    if (stored) {
+      const val = parseInt(stored, 10);
+      if (val > Date.now()) return val;
+    }
+    const target = Date.now() + 2 * 60 * 60 * 1000;
+    localStorage.setItem(key, target.toString());
+    return target;
+  } catch {
+    return Date.now() + 2 * 60 * 60 * 1000;
   }
-  // 2 hours from now
-  const target = Date.now() + 2 * 60 * 60 * 1000;
-  localStorage.setItem(key, target.toString());
-  return target;
 }
 
 export default function UrgencyBar() {
-  const [target] = useState(getTargetTime);
-  const [timeLeft, setTimeLeft] = useState({ h: 0, m: 0, s: 0 });
+  const [timeLeft, setTimeLeft] = useState({ h: 2, m: 45, s: 12 });
 
   useEffect(() => {
+    const target = getTargetTime();
     const tick = () => {
       const diff = Math.max(0, target - Date.now());
       const h = Math.floor(diff / 3600000);
@@ -29,7 +34,7 @@ export default function UrgencyBar() {
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
-  }, [target]);
+  }, []);
 
   const pad = (n: number) => n.toString().padStart(2, '0');
 
@@ -38,8 +43,8 @@ export default function UrgencyBar() {
       {/* Animated shimmer */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
 
-      <div className="relative flex items-center justify-center gap-3 px-4 py-2.5 text-white text-sm font-medium">
-        <span className="text-lg leading-none">🔥</span>
+      <div className="relative flex items-center justify-center gap-3 px-4 py-2.5 text-white text-xs sm:text-sm font-medium">
+        <span className="text-base sm:text-lg leading-none">🔥</span>
         <span className="hidden sm:inline">Oferta de lanzamiento:</span>
         <span className="font-bold text-yellow-300">42% OFF</span>
         <span className="hidden sm:inline text-white/80">— termina en</span>

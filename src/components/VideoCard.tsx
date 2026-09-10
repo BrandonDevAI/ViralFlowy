@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Copy, CheckCircle2, ChevronDown, Hash } from 'lucide-react';
 import type { CompleteVideo } from '../types';
